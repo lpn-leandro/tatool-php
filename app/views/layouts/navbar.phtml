@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+            <div class="collapse navbar-collapse d-lg-flex" id="navbarToggle">
+                <a class="navbar-brand col-lg-3 me-0" href="#">TaTooL</a>
+                <ul class="navbar-nav col-lg-6 justify-content-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<//?= route('user.index') ?>">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<//?= route('user.appointments') ?>">Agendamentos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<//?= route('user.profile') ?>">Perfil</a>
+                    </li>
+                </ul>
+
+
+                <!-- <//?php if ($this->current_user) : ?> -->
+                    
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" aria-expanded="false" style="color: white;">
+                        <i class="bi bi-person-circle">
+                            Leandro Teste
+                            <!-- <//?= $this->current_user->email ?> -->
+                        </i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="<//?= route('profile.show') ?>" >Profile</a>
+                        <a class="dropdown-item" href="<//?= route('users.logout')">Sair</a>
+                    </div>
+                </div>
+                    
+                <!-- <//?php else : ?> -->
+
+            </div>
+    </div>
+</nav>
