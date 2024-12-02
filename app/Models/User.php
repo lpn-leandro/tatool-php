@@ -56,9 +56,9 @@ class User extends Model
 
     public function __set(string $property, mixed $value): void
     {
-      parent::__set($property, $value);
+        parent::__set($property, $value);
 
-      if (
+        if (
             $property == 'password' &&
             $this->newRecord() &&
             $value !== null && $value !== ''
