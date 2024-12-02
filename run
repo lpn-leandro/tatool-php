@@ -78,4 +78,4 @@ function db:populate {
 }
 
 TIMEFORMAT=$'\nTask completed in %3lR'
-time ${@}
+time "${@}"

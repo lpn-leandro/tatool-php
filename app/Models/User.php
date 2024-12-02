@@ -2,26 +2,31 @@
 
 namespace App\Models;
 
-use Core\Database\ActiveRecord\Model;
 use Lib\Validations;
+use Core\Database\ActiveRecord\Model;
+use Core\Database\ActiveRecord\BelongsToMany;
+use Core\Database\ActiveRecord\HasMany;
 
 /**
  * @property int $id
  * @property string $name
  * @property string $email
  * @property string $encrypted_password
+ * @property 'T'|'U' $user_type
+ * @property string|null $bio
+ * @property int|null $rate_id
  */
 class User extends Model
 {
     protected static string $table = 'users';
-    protected static array $columns = ['name', 'email', 'encrypted_password'];
+    protected static array $columns = ['name', 'email', 'encrypted_password', 'user_type', 'bio', 'rate_id'];
 
     protected ?string $password = null;
     protected ?string $password_confirmation = null;
 
-    // public function appointments() {
-    //     return $this->hasMany(Appointment::class, 'user_id');
-    // }
+  // public function appointments() {
+  //     return $this->hasMany(Appointment::class, 'user_id');
+  // }
 
     public function validates(): void
     {
@@ -51,14 +56,14 @@ class User extends Model
 
     public function __set(string $property, mixed $value): void
     {
-        if (
+      parent::__set($property, $value);
+
+      if (
             $property == 'password' &&
             $this->newRecord() &&
             $value !== null && $value !== ''
         ) {
             $this->encrypted_password = password_hash($value, PASSWORD_DEFAULT);
-        } else {
-            parent::__set($property, $value);
         }
     }
 }
