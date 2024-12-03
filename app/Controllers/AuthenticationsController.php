@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\User;
@@ -7,15 +8,18 @@ use Core\Http\Request;
 use Lib\Authentication\Auth;
 use Lib\FlashMessage;
 
-class AuthenticationController extends Controller {
+class AuthenticationsController extends Controller 
+{
   protected string $layout = 'login';
 
-  public function new(): void {
+  public function new(): void 
+  {
     $this->render('authentications/new');
   }
 
-  public function authenticate(Request $request): void {
-    $params = $request->getParams('user');
+  public function authenticate(Request $request): void 
+  {
+    $params = $request->getParam('user');
     $user = User::findByEmail($params['email']);
 
     if ($user && $user->authenticate($params['password'])) {
@@ -29,10 +33,10 @@ class AuthenticationController extends Controller {
     }
   }
 
-  public function destroy(): void {
+  public function destroy(): void 
+  {
     Auth::logout();
     FlashMessage::success('Logout realizado com sucesso!');
     $this->redirectTo(route('users.login'));
   }
-
 }

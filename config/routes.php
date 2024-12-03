@@ -12,7 +12,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/logout', [AuthenticationController::class, 'destroy'])->name('users.logout');
 
-// Authentication
 Route::get('/', [HomeController::class, 'index'])->name('root');
 
 });
