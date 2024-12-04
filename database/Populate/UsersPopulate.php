@@ -9,13 +9,13 @@ class UsersPopulate
   public static function populate()
   {
     $data = [
-      'name' => 'Usuário',
-      'email' => 'usuario@example.com',
+      'name' => 'tatuador',
+      'email' => 'tatuador@example.com',
       'password' => '123456',
       'password_confirmation' => '123456',
-      'bio' => 'Descrição de exemplo',
+      'bio' => 'tatuador',
       'rate_id' => 1,
-      'user_type' => 'U'
+      'user_type' => 'T',
     ];
 
     $user = new User($data);
@@ -25,13 +25,11 @@ class UsersPopulate
 
     for ($i = 1; $i < $numberOfUsers; $i++) {
       $data = [
-        'name' => 'Usuário' . $i,
+        'name' => 'usuario' . $i,
         'email' => 'usuario' . $i . '@example.com',
         'password' => '123456',
         'password_confirmation' => '123456',
-        'bio' => 'Tatuador de exemplo',
-        'rate_id' => 1,
-        'user_type' => 'U'
+        'user_type' => 'U',
       ];
 
       $user = new User($data);

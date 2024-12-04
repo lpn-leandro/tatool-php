@@ -306,10 +306,12 @@ abstract class Model
         SQL;
 
         $sqlConditions = array_map(function ($column) {
-            return "{$column} = :{$column}";
+            return " {$column} = :{$column}";
         }, array_keys($conditions));
 
         $sql .= implode(' AND ', $sqlConditions);
+
+        //dd($sql);
 
         $pdo = Database::getDatabaseConn();
         $stmt = $pdo->prepare($sql);
