@@ -10,8 +10,7 @@ Route::post('/login', [AuthenticationsController::class, 'authenticate'])->name(
 
 Route::middleware('auth')->group(function () {
 
-Route::get('/logout', [AuthenticationsController::class, 'destroy'])->name('users.logout');
+    Route::get('/logout', [AuthenticationsController::class, 'destroy'])->name('users.logout');
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
 });
