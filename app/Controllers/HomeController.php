@@ -7,7 +7,6 @@ use Core\Http\Request;
 use Lib\FlashMessage;
 use Lib\Authentication\Auth;
 
-
 class HomeController extends Controller
 {
     public function index(Request $request): void
@@ -16,7 +15,7 @@ class HomeController extends Controller
         $user = Auth::user();
         if ($user->isTattooist()) {
             $this->render('home/tattooistIndex', compact('title'));
-        }else {
+        } else {
             $this->render('home/userIndex', compact('title'));
         }
     }
