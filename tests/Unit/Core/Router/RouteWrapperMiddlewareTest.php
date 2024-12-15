@@ -13,7 +13,7 @@ class RouteWrapperMiddlewareTest extends FrameworkTestCase
 {
     public function test_group_should_add_middleware_to_routes(): void
     {
-        $middlewareName = 'auth';
+        $middlewareName = 'user';
         $routeWrapperMiddleware = new RouteWrapperMiddleware($middlewareName);
         $routeSizeBefore = Router::getInstance()->getRouteSize();
 

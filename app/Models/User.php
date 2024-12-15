@@ -49,9 +49,19 @@ class User extends Model
         return password_verify($password, $this->encrypted_password);
     }
 
-    public static function findByEmail(string $email): User | null
+    public static function findByEmail(string $email): User|null
     {
         return User::findBy(['email' => $email]);
+    }
+
+    public function isTattooist(): bool
+    {
+        return $this->user_type === 'T';
+    }
+
+    public function isUser(): bool
+    {
+        return $this->user_type === 'U';
     }
 
     public function __set(string $property, mixed $value): void

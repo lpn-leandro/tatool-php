@@ -25,8 +25,13 @@ class AuthenticationsController extends Controller
         if ($user && $user->authenticate($params['password'])) {
             Auth::login($user);
 
-            FlashMessage::success('Login realizado com sucesso!');
-            $this->redirectTo(route('home.index'));
+            if ($user->user_type === 'T') {
+                FlashMessage::success('Login realizado com sucesso!');
+                $this->redirectTo(route('home.tattooistIndex'));
+            } elseif ($user->user_type === 'U') {
+                FlashMessage::success('Login realizado com sucesso!');
+                $this->redirectTo(route('home.userIndex'));
+            }
         } else {
             FlashMessage::danger('E-mail e/ou senha inválidos!');
             $this->redirectTo(route('users.login'));
