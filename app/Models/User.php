@@ -54,12 +54,12 @@ class User extends Model
         return User::findBy(['email' => $email]);
     }
 
-    public function isTattooist()
+    public function isTattooist(): bool
     {
         return $this->user_type === 'T';
     }
 
-    public function isUser()
+    public function isUser(): bool
     {
         return $this->user_type === 'U';
     }
