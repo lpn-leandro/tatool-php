@@ -26,6 +26,12 @@ class Auth
         return isset($_SESSION['user']['id']) && self::user() !== null;
     }
 
+    public static function role(string $role): bool
+    {
+        $user = self::user();
+        return $user && $user->role === $role;
+    }
+
     public static function logout(): void
     {
         unset($_SESSION['user']['id']);
