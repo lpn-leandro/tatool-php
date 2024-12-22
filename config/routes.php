@@ -18,5 +18,5 @@ Route::middleware('user')->group(callback: function () {
 Route::middleware('tattooist')->group(function () {
     Route::get('/tattooist', [HomeController::class, 'index'])->name('home.tattooistIndex');
 
-    Route::get('/tattooist/appointments', [HomeController::class, 'appointments'])->name('home.tattoistAppointments');
+    Route::get('/tattooist/appointments', [HomeController::class, 'appointments'])->name('home.tattooistAppointments');
 });
