@@ -58,10 +58,8 @@ CREATE TABLE appointments
   id           INT AUTO_INCREMENT PRIMARY KEY,
   date         DATETIME,
   size         VARCHAR(50),
-  image_url    VARCHAR(255),
   location     VARCHAR(255),
   status       enum ('pendente', 'confirmado', 'cancelado', 'completado') DEFAULT 'pendente',
-  created_at   TIMESTAMP                                                  DEFAULT CURRENT_TIMESTAMP,
   users_id     INT NOT NULL REFERENCES users (id) ON DELETE RESTRICT,
   tattooists_id INT NOT NULL REFERENCES users (id) ON DELETE RESTRICT
 );
