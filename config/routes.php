@@ -12,8 +12,11 @@ Route::get('/logout', [AuthenticationsController::class, 'destroy'])->name('user
 
 Route::middleware('user')->group(callback: function () {
     Route::get('/user', [HomeController::class, 'index'])->name('home.userIndex');
+    Route::get('/user/appointments', [HomeController::class, 'appointments'])->name('home.appointments');
 });
 
 Route::middleware('tattooist')->group(function () {
     Route::get('/tattooist', [HomeController::class, 'index'])->name('home.tattooistIndex');
+
+    Route::get('/tattooist/appointments', [HomeController::class, 'appointments'])->name('home.tattoistAppointments');
 });

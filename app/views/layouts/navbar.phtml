@@ -5,14 +5,20 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+      
             <div class="collapse navbar-collapse d-lg-flex" id="navbarToggle">
                 <a class="navbar-brand col-lg-3 me-0" href="#">TaTooL</a>
                 <ul class="navbar-nav col-lg-6 justify-content-lg-center">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<//?= route('user.index') ?>">Home</a>
+                        <a class="nav-link active" aria-current="page" href="<?php 
+                            echo $this->current_user && $this->current_user->isTattooist() ? route('home.tattooistIndex') : route('home.userIndex'); 
+                        ?>">Home</a>
+                    
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<//?= route('user.appointments') ?>">Agendamentos</a>
+                        <a class="nav-link" href="<?php 
+                            echo $this->current_user && $this->current_user->isTattooist() ? route('home.tattooistAppointments') : route('home.appointments'); 
+                        ?>">Agendamentos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<//?= route('user.profile') ?>">Perfil</a>

@@ -19,4 +19,11 @@ class HomeController extends Controller
             $this->render('home/userIndex', compact('title'));
         }
     }
+
+
+    public function appointments(Request $request): void
+    {
+        $title = 'Agendamentos';
+        $this->render('appointments/appointments', compact('title'));
+    }
 }
