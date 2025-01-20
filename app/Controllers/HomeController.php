@@ -23,7 +23,14 @@ class HomeController extends Controller
 
     public function appointments(Request $request): void
     {
+        $user = Auth::user();
+
         $title = 'Agendamentos';
-        $this->render('appointments/appointments', compact('title'));
+        if ($user->isTattooist()) {
+            $this->render('appointments/tattooistAppointments', compact('title'));
+        } else {
+            $this->render('appointments/appointments', compact('title'));
+        }
+        
     }
 }

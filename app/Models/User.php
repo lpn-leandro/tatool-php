@@ -24,9 +24,9 @@ class User extends Model
     protected ?string $password = null;
     protected ?string $password_confirmation = null;
 
-  // public function appointments() {
-  //     return $this->hasMany(Appointment::class, 'user_id');
-  // }
+  public function appointments() {
+      return $this->hasMany(Appointment::class, 'user_id');
+  }
 
     public function validates(): void
     {
