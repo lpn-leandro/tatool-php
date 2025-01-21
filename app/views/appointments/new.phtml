@@ -1,0 +1,9 @@
+<form action="<?= route('appointments.create') ?>" method="POST" class="<?= $appointment->hasErrors() ? '' : 'was-validated' ?>" novalidate>
+    <div class="mb-3">
+        <label for="location" class="form-label">Título:</label>
+        <input type="text" value="<?= $appointment->location ?>" name="appointment[location]" class="form-control" id="location" required>
+        <div class="invalid-feedback"><?= $appointment->errors('location') ? $appointment->errors('location') : '' ?></div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>

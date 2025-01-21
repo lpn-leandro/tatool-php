@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS works_users;
 CREATE TABLE works_users
 (
   works_id INT NOT NULL REFERENCES works (id) ON DELETE RESTRICT,
-  user_id  INT NOT NULL REFERENCES users (id) ON DELETE RESTRICT
+  users_id  INT NOT NULL REFERENCES users (id) ON DELETE RESTRICT
 );
 
 SET foreign_key_checks = 1;

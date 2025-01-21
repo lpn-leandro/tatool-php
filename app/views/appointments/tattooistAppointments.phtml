@@ -19,6 +19,7 @@
     <tbody>
         <?php if (!empty($appointments)) : ?>
         <?php foreach ($appointments as $appointment) : ?>
+            
             <tr>
                 <td><a href="<?= route('appointments.show', ['id' => $appointment->id]) ?>">#<?= $appointment->id ?></a></td>
                 <td><?= $appointment->title ?></td>
