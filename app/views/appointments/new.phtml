@@ -1,8 +1,33 @@
 <form action="<?= route('appointments.create') ?>" method="POST" class="<?= $appointment->hasErrors() ? '' : 'was-validated' ?>" novalidate>
     <div class="mb-3">
-        <label for="location" class="form-label">Título:</label>
-        <input type="text" value="<?= $appointment->location ?>" name="appointment[location]" class="form-control" id="location" required>
-        <div class="invalid-feedback"><?= $appointment->errors('location') ? $appointment->errors('location') : '' ?></div>
+        <label for="location" class="form-label">Data do agendamento:</label>
+        <input type="datetime-local" value="<?= $appointment->location ?>" name="appointment[location]" class="form-control" id="location" required>
+        <label for="location" class="form-label">Tamanho:</label>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Clique para selecionar os tamanhos</option>
+            <option value="1">Pequeno (20x20 até 30x30)</option>
+            <option value="2">Médio (30x30 até 40x40)</option>
+            <option value="3">Grande (40x40 até 50x50)</option>
+        </select>
+        <label for="location" class="form-label">Local da tatuagem:</label>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Clique para selecionar o local</option>
+            <option value="1">Braço</option>
+            <option value="2">Antebraço</option>
+            <option value="3">Perna</option>
+            <option value="4">Barriga</option>
+            <option value="5">Outros</option>
+        </select>
+        <label for="location" class="form-label">Status:</label>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Clique para selecionar o local</option>
+            <option value="1">Pendente</option>
+        </select>
+        <label for="location" class="form-label">Cliente:</label>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Clique para selecionar o Cliente</option>
+            <option value="1">...</option>
+        </select>  
     </div>
 
     <button type="submit" class="btn btn-primary">Registrar</button>
