@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Users;
 
 use Core\Http\Controllers\Controller;
 use Core\Http\Request;
@@ -9,34 +9,21 @@ use Lib\Authentication\Auth;
 
 class AppointmentsController extends Controller
 {
-  public function index(Request $request): void
-  {
-    $title = 'Home';
-    $user = Auth::user();
-    $paginator = $this->current_user->appointments()->paginate(page: $request->getParam('page', 1));
-    $appointments = $paginator->registers();
-   
-    if ($user->isTattooist()) {
-      $this->render('home/tattooistIndex', compact('paginator','appointments','title'));
-    } else {
-      $this->render('home/userIndex', compact('appointments', 'paginator', 'title'));
+    public function index(Request $request): void
+    {
+        $title = 'Agendamentos';
+        $user = Auth::user();
+        $paginator = $this->current_user->tattooAppointments()->paginate(page: $request->getParam('page', 1));
+        $appointments = $paginator->registers();
+
+        if ($user->isTattooist()) {
+            $this->render('appointments/tattooistAppointments', compact('paginator', 'appointments', 'title'));
+        } else {
+            $this->render('appointments/appointments', compact('appointments', 'paginator', 'title'));
+        }
     }
-  }
 
-  public function appointments(Request $request): void
-  {
-      $user = Auth::user();
-
-      $title = 'Agendamentos';
-      if ($user->isTattooist()) {
-          $this->render('appointments/tattooistAppointments', compact('title'));
-      } else {
-          $this->render('appointments/appointments', compact('title'));
-      }
-      
-  }
-
-  public function show(Request $request): void
+    public function show(Request $request): void
     {
         $params = $request->getParams();
 
@@ -106,5 +93,4 @@ class AppointmentsController extends Controller
         FlashMessage::success('Problema removido com sucesso!');
         $this->redirectTo(route('appointments.index'));
     }
-
 }

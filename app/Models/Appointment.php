@@ -21,7 +21,7 @@ use DateTime;
  */
 class Appointment extends Model
 {
-    protected static string $table = 'appointments';    
+    protected static string $table = 'appointments';
     protected static array $columns = ['date', 'size', 'location', 'status', 'users_id', 'tattooists_id'];
 
 
@@ -30,10 +30,13 @@ class Appointment extends Model
         return $this->belongsTo(User::class, 'users_id');
     }
 
+    public function tattooists_id(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'tattooists_id');
+    }
+
     public function validates(): void
     {
         Validations::notEmpty('date', $this);
     }
-
-
 }
