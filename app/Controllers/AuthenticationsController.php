@@ -27,7 +27,7 @@ class AuthenticationsController extends Controller
 
             if ($user->user_type === 'T') {
                 FlashMessage::success('Login realizado com sucesso!');
-                $this->redirectTo(route('home.tattooistIndex'));
+                $this->redirectTo(route('tattooists.home'));
             } elseif ($user->user_type === 'U') {
                 FlashMessage::success('Login realizado com sucesso!');
                 $this->redirectTo(route('home.userIndex'));

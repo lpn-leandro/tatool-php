@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Users;
 
 use Core\Http\Controllers\Controller;
 use Core\Http\Request;
@@ -11,29 +11,13 @@ class AppointmentsController extends Controller
 {
   public function index(Request $request): void
   {
-    $title = 'Home';
+    $title = 'Agendamentos';
     $user = Auth::user();
-    $paginator = $this->current_user->appointments()->paginate(page: $request->getParam('page', 1));
+    $paginator = $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam('page', 1));
     $appointments = $paginator->registers();
    
-    if ($user->isTattooist()) {
-      $this->render('home/tattooistIndex', compact('paginator','appointments','title'));
-    } else {
-      $this->render('home/userIndex', compact('appointments', 'paginator', 'title'));
-    }
-  }
-
-  public function appointments(Request $request): void
-  {
-      $user = Auth::user();
-
-      $title = 'Agendamentos';
-      if ($user->isTattooist()) {
-          $this->render('appointments/tattooistAppointments', compact('title'));
-      } else {
-          $this->render('appointments/appointments', compact('title'));
-      }
-      
+   
+      $this->render('tattooists/appointments/index', compact('paginator','appointments','title'));
   }
 
   public function show(Request $request): void

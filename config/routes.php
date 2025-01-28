@@ -1,6 +1,7 @@
 <?php
 
-use App\Controllers\AppointmentsController;
+use App\Controllers\Tattooists\AppointmentsController as TattooistsAppointmentsController;
+use App\Controllers\Users\AppointmentsController as UsersAppointmentsController;
 use App\Controllers\HomeController;
 use Core\Router\Route;
 use App\Controllers\AuthenticationsController;
@@ -17,27 +18,26 @@ Route::get('/', [AuthenticationsController::class, 'destroy'])->name('users.logo
 
 Route::middleware('user')->group(callback: function () {
     Route::get('/user', [HomeController::class, 'index'])->name('home.userIndex');
-    Route::get('/user/appointments', [AppointmentsController::class, 'appointments'])->name('home.appointments');
+    Route::get('/user/appointments', [UsersAppointmentsController::class, 'index'])->name('home.appointments');
 });
 
 Route::middleware('tattooist')->group(function () {
-    Route::get('/tattooist', [HomeController::class, 'index'])->name('home.tattooistIndex');
-
-    Route::get('/tattooist/appointments', [AppointmentsController::class, 'appointments'])->name('home.tattooistAppointments');
+    Route::get('/tattooist', [HomeController::class, 'index'])->name('tattooists.home');
+    Route::get('/tattooist/appointments', [TattooistsAppointmentsController::class, 'index'])->name('tattooists.appointments.index');
 });
 
 // Create
-Route::get('/appointments/new', [AppointmentsController::class, 'new'])->name('appointments.new');
-Route::post('/appointments', [AppointmentsController::class, 'create'])->name('appointments.create');
+Route::get('/appointments/new', [UsersAppointmentsController::class, 'new'])->name('appointments.new');
+Route::post('/appointments', [UsersAppointmentsController::class, 'create'])->name('appointments.create');
 
 // Retrieve
-Route::get('/appointments', [AppointmentsController::class, 'index'])->name('appointments.index');
-Route::get('/appointments/page/{page}', [AppointmentsController::class, 'index'])->name('appointments.paginate');
-Route::get('/appointments/{id}', [AppointmentsController::class, 'show'])->name('appointments.show');
+Route::get('/appointments', [UsersAppointmentsController::class, 'index'])->name('appointments.index');
+Route::get('/appointments/page/{page}', [UsersAppointmentsController::class, 'index'])->name('appointments.paginate');
+Route::get('/appointments/{id}', [UsersAppointmentsController::class, 'show'])->name('appointments.show');
 
 // Update
-Route::get('/appointments/{id}/edit', [AppointmentsController::class, 'edit'])->name('appointments.edit');
-Route::put('/appointments/{id}', [AppointmentsController::class, 'update'])->name('appointments.update');
+Route::get('/appointments/{id}/edit', [UsersAppointmentsController::class, 'edit'])->name('appointments.edit');
+Route::put('/appointments/{id}', [UsersAppointmentsController::class, 'update'])->name('appointments.update');
 
 // Delete
-Route::delete('/appointments/{id}', [AppointmentsController::class, 'destroy'])->name('appointments.destroy');
+Route::delete('/appointments/{id}', [UsersAppointmentsController::class, 'destroy'])->name('appointments.destroy');

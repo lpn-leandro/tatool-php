@@ -13,7 +13,8 @@
 <table class="table">
     <thead>
         <th>ID</th>
-        <th>Título</th>
+        <th>Date</th>
+        <th>User</th>
         <th></th>
     </thead>
     <tbody>
@@ -22,7 +23,8 @@
             
             <tr>
                 <td><a href="<?= route('appointments.show', ['id' => $appointment->id]) ?>">#<?= $appointment->id ?></a></td>
-                <td><?= $appointment->title ?></td>
+                <td><?= $appointment->date ?></td>
+                <td><?= $appointment->user->name ?></td>
                 <td>
                     <div class="d-flex flex-row-reverse">
                         <form action="<?= route('appointments.destroy', ['id' => $appointment->id]) ?>" method="POST" class="m-0">

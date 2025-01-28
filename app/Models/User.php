@@ -28,6 +28,10 @@ class User extends Model
       return $this->hasMany(Appointment::class, 'users_id');
   }
 
+  public function tattoistsAppointments() {
+    return $this->hasMany(Appointment::class, 'tattooists_id');
+}
+
     public function validates(): void
     {
         Validations::notEmpty('name', $this);

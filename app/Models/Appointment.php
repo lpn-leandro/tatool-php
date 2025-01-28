@@ -30,6 +30,11 @@ class Appointment extends Model
         return $this->belongsTo(User::class, 'users_id');
     }
 
+    public function tattooists_id(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'tattooists_id');
+    }
+
     public function validates(): void
     {
         Validations::notEmpty('date', $this);
