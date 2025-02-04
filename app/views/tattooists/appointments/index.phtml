@@ -3,7 +3,7 @@
         <h1>Agendamentos</h1>
     </div>
     <div class="col-4">
-        <a href="<?= route('appointments.new') ?>" class="btn btn-outline-primary">
+        <a href="<?= route('tattooists.appointments.new') ?>" class="btn btn-outline-primary">
             <i class="fe fe-plus"></i>
             Registrar Agendamento
         </a>
@@ -22,7 +22,7 @@
         <?php foreach ($appointments as $appointment) : ?>
             
             <tr>
-                <td><a href="<?= route('appointments.show', ['id' => $appointment->id]) ?>">#<?= $appointment->id ?></a></td>
+                <td><a href="<?= route('tattooists.appointments.show', ['id' => $appointment->id]) ?>">#<?= $appointment->id ?></a></td>
                 <td><?= $appointment->date ?></td>
                 <td><?= $appointment->user->name ?></td>
                 <td>

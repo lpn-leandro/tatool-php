@@ -26,8 +26,11 @@
         <label for="location" class="form-label">Cliente:</label>
         <select class="form-select" aria-label="Default select example">
             <option selected>Clique para selecionar o Cliente</option>
+            <?php foreach ($clients as $client) : ?>
+                <option value="<?= $client->id ?>"><?= $client->name ?></option>
+            <?php endforeach; ?>
             <option value="1">...</option>
-        </select>  
+        </select>
     </div>
 
     <button type="submit" class="btn btn-primary">Registrar</button>

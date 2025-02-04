@@ -26,14 +26,23 @@ Route::middleware('tattooist')->group(function () {
     Route::get('/tattooist/appointments', [TattooistsAppointmentsController::class, 'index'])->name('tattooists.appointments.index');
 });
 
-// Create
-Route::get('/appointments/new', [UsersAppointmentsController::class, 'new'])->name('appointments.new');
-Route::post('/appointments', [UsersAppointmentsController::class, 'create'])->name('appointments.create');
+// Create User Appointment
+//Route::get('/appointments/new', [UsersAppointmentsController::class, 'new'])->name('appointments.new');
+//Route::post('/appointments', [UsersAppointmentsController::class, 'create'])->name('appointments.create');
 
-// Retrieve
-Route::get('/appointments', [UsersAppointmentsController::class, 'index'])->name('appointments.index');
-Route::get('/appointments/page/{page}', [UsersAppointmentsController::class, 'index'])->name('appointments.paginate');
-Route::get('/appointments/{id}', [UsersAppointmentsController::class, 'show'])->name('appointments.show');
+// Create Tattooist Appointment
+Route::get('/tattooist/appointments/new', [TattooistsAppointmentsController::class, 'new'])->name('tattooists.appointments.new');
+Route::post('/tattooist/appointments', [TattooistsAppointmentsController::class, 'create'])->name('tattooists.appointments.create');
+
+// Retrieve User Appointment
+//Route::get('/appointments', [UsersAppointmentsController::class, 'index'])->name('appointments.index');
+//Route::get('/appointments/page/{page}', [UsersAppointmentsController::class, 'index'])->name('appointments.paginate');
+//Route::get('/appointments/{id}', [UsersAppointmentsController::class, 'show'])->name('appointments.show');
+
+// Retrieve Tattooist Appointment
+Route::get('/tattooist/appointments', [TattooistsAppointmentsController::class, 'index'])->name('tattooists.appointments.index');
+Route::get('/appointments/page/{page}', [TattooistsAppointmentsController::class, 'index'])->name('tattooists.appointments.paginate');
+Route::get('/appointments/{id}', [TattooistsAppointmentsController::class, 'show'])->name('tattooists.appointments.show');
 
 // Update
 Route::get('/appointments/{id}/edit', [UsersAppointmentsController::class, 'edit'])->name('appointments.edit');

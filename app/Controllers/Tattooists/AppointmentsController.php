@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Tattooists;
 
+use App\Models\User;
 use Core\Http\Controllers\Controller;
 use Core\Http\Request;
 use Lib\FlashMessage;
@@ -16,8 +17,7 @@ class AppointmentsController extends Controller
     $paginator = $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam('page', 1));
     $appointments = $paginator->registers();
    
-   
-      $this->render('tattooists/appointments/index', compact('paginator','appointments','title'));
+    $this->render('tattooists/appointments/index', compact('paginator','appointments','title'));
   }
 
   public function show(Request $request): void
@@ -34,8 +34,10 @@ class AppointmentsController extends Controller
     {
         $appointment = $this->current_user->appointments()->new();
 
-        $title = 'Novo Problema';
-        $this->render('appointments/new', compact('appointment', 'title'));
+        $users = $this->getUsers();
+
+        $title = 'Novo Agendamento';
+        $this->render('tattooists/appointments/new', compact('appointment', 'users', 'title'));
     }
 
     public function create(Request $request): void
@@ -43,13 +45,16 @@ class AppointmentsController extends Controller
         $params = $request->getParams();
         $appointment = $this->current_user->appointments()->new($params['appointment']);
 
+        $appointment->tattooists_id = $this->current_user->id;
+
         if ($appointment->save()) {
             FlashMessage::success('Problema registrado com sucesso!');
-            $this->redirectTo(route('appointments.index'));
+            $this->redirectTo(route('tattooists.appointments.index'));
         } else {
             FlashMessage::danger('Existem dados incorretos! Por verifique!');
+            $users = $this->getUsers();
             $title = 'Novo Problema';
-            $this->render('appointments/new', compact('appointment', 'title'));
+            $this->render('tattooists/appointments/new', compact('appointment','users', 'title'));
         }
     }
 
@@ -91,4 +96,11 @@ class AppointmentsController extends Controller
         $this->redirectTo(route('appointments.index'));
     }
 
+    private function getUsers()
+    {
+            //return User::all();   
+            return User::where(['user_type' => 'U']);
+
+
+    }
 }
