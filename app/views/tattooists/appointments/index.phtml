@@ -27,7 +27,7 @@
                 <td><?= $appointment->user->name ?></td>
                 <td>
                     <div class="d-flex flex-row-reverse">
-                        <form action="<?= route('appointments.destroy', ['id' => $appointment->id]) ?>" method="POST" class="m-0">
+                        <form action="<?= route('tattooists.appointments.destroy', ['id' => $appointment->id]) ?>" method="POST" class="m-0">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-link"><i class="bi bi-archive"></i></button>
                         </form>

@@ -52,5 +52,8 @@ Route::get('/appointments/{id}', [TattooistsAppointmentsController::class, 'show
 Route::get('/tattooist/appointments/{id}/edit', [TattooistsAppointmentsController::class, 'edit'])->name('tattooists.appointments.edit');
 Route::put('/tattooist/appointments/{id}', [TattooistsAppointmentsController::class, 'update'])->name('tattooists.appointments.update');
 
-// Delete
-Route::delete('/appointments/{id}', [UsersAppointmentsController::class, 'destroy'])->name('appointments.destroy');
+// Delete User Appointment
+//Route::delete('/appointments/{id}', [UsersAppointmentsController::class, 'destroy'])->name('appointments.destroy');
+
+// Delete Tattooist Appointment
+Route::delete('/tattooist/appointments/{id}', [TattooistsAppointmentsController::class, 'destroy'])->name('tattooists.appointments.destroy');

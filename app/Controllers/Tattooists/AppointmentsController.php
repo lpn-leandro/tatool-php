@@ -104,7 +104,7 @@ class AppointmentsController extends Controller
         $appointment->destroy();
 
         FlashMessage::success('Problema removido com sucesso!');
-        $this->redirectTo(route('appointments.index'));
+        $this->redirectTo(route('tattooists.appointments.index'));
     }
 
     private function getUsers()
