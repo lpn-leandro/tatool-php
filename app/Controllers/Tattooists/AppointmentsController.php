@@ -24,7 +24,7 @@ class AppointmentsController extends Controller
     {
         $params = $request->getParams();
 
-        $appointment = $this->current_user->appointments()->findById($params['id']);
+        $appointment = $this->current_user->tattoistsAppointments()->findById($params['id']);
 
         $title = "Visualização do Agendamento #{$appointment->id}";
         $this->render('appointments/show', compact('appointment', 'name'));
@@ -32,7 +32,7 @@ class AppointmentsController extends Controller
 
     public function new(): void
     {
-        $appointment = $this->current_user->appointments()->new();
+        $appointment = $this->current_user->tattoistsAppointments()->new();
 
         $users = $this->getUsers();
 
@@ -43,7 +43,7 @@ class AppointmentsController extends Controller
     public function create(Request $request): void
     {
         $params = $request->getParams();
-        $appointment = $this->current_user->appointments()->new($params['appointment']);
+        $appointment = $this->current_user->tattoistsAppointments()->new($params['appointment']);
 
         $appointment->tattooists_id = $this->current_user->id;
 
@@ -61,10 +61,19 @@ class AppointmentsController extends Controller
     public function edit(Request $request): void
     {
         $params = $request->getParams();
-        $appointment = $this->current_user->appointments()->findById($params['id']);
+        //dd($params);
+        $appointment = $this->current_user->tattoistsAppointments()->findById($params['id']);
+
+        $users = $this->getUsers();
+        
+        if (!$appointment) {
+            FlashMessage::danger('Agendamento não encontrado!');
+            $this->redirectTo(route('tattooists.appointments.index'));
+            return;
+        }
 
         $title = "Editar Problema #{$appointment->id}";
-        $this->render('appointments/edit', compact('appointment', 'title'));
+        $this->render('tattooists/appointments/edit', compact('appointment', 'title', 'users'));
     }
 
     public function update(Request $request): void
@@ -72,16 +81,18 @@ class AppointmentsController extends Controller
         $id = $request->getParam('id');
         $params = $request->getParam('appointment');
 
-        $appointment = $this->current_user->appointments()->findById($id);
-        $appointment->title = $params['title'];
+        $appointment = $this->current_user->tattoistsAppointments()->findById($id);
+        //$appointment->users_id = $params['users_id'];
+
+        //dd($id, $params, $this->current_user->tattoistsAppointments()->findById($id));
 
         if ($appointment->save()) {
-            FlashMessage::success('Problema atualizado com sucesso!');
-            $this->redirectTo(route('appointments.index'));
+            FlashMessage::success('Agendamento atualizado com sucesso!');
+            $this->redirectTo(route('tattooists.appointments.index'));
         } else {
             FlashMessage::danger('Existem dados incorretos! Por verifique!');
-            $title = "Editar Problema #{$appointment->id}";
-            $this->render('appointments/edit', compact('appointment', 'title'));
+            $title = "Editar Agendamento #{$appointment->id}";
+            $this->render('tattooist/appointments/edit', compact('appointment', 'title'));
         }
     }
 
@@ -89,7 +100,7 @@ class AppointmentsController extends Controller
     {
         $params = $request->getParams();
 
-        $appointment = $this->current_user->appointments()->findById($params['id']);
+        $appointment = $this->current_user->tattoistsAppointments()->findById($params['id']);
         $appointment->destroy();
 
         FlashMessage::success('Problema removido com sucesso!');

@@ -44,9 +44,13 @@ Route::get('/tattooist/appointments', [TattooistsAppointmentsController::class, 
 Route::get('/appointments/page/{page}', [TattooistsAppointmentsController::class, 'index'])->name('tattooists.appointments.paginate');
 Route::get('/appointments/{id}', [TattooistsAppointmentsController::class, 'show'])->name('tattooists.appointments.show');
 
-// Update
-Route::get('/appointments/{id}/edit', [UsersAppointmentsController::class, 'edit'])->name('appointments.edit');
-Route::put('/appointments/{id}', [UsersAppointmentsController::class, 'update'])->name('appointments.update');
+// Update User Appointment
+//Route::get('/appointments/{id}/edit', [UsersAppointmentsController::class, 'edit'])->name('appointments.edit');
+//Route::put('/appointments/{id}', [UsersAppointmentsController::class, 'update'])->name('appointments.update');
+
+// Update Tattooist Appointment
+Route::get('/tattooist/appointments/{id}/edit', [TattooistsAppointmentsController::class, 'edit'])->name('tattooists.appointments.edit');
+Route::put('/tattooist/appointments/{id}', [TattooistsAppointmentsController::class, 'update'])->name('tattooists.appointments.update');
 
 // Delete
 Route::delete('/appointments/{id}', [UsersAppointmentsController::class, 'destroy'])->name('appointments.destroy');

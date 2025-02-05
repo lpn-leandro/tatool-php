@@ -1,0 +1,46 @@
+<form action="<?= route('tattooists.appointments.update', ['id' => $appointment->id]) ?>" method="POST" class="<?= $appointment->hasErrors() ? '' : 'was-validated' ?>" novalidate>
+    <input type="hidden" name="_method" value="PUT">
+    <div class="mb-3">
+        
+    
+    <label for="date" class="form-label">Data do agendamento:</label>
+        <input type="datetime-local" value="<?= $appointment->date ?>" name="appointment[date]" class="form-control" id="date" required>
+        
+        <label for="size" class="form-label">Tamanho:</label>
+        <select name="appointment[size]" class="form-select" aria-label="Selecione o tamanho">
+            <option selected disabled>Clique para selecionar os tamanhos</option>
+            <option value="1">Pequeno (20x20 até 30x30)</option>
+            <option value="2">Médio (30x30 até 40x40)</option>
+            <option value="3">Grande (40x40 até 50x50)</option>
+        </select>
+        
+        <label for="location" class="form-label">Local da tatuagem:</label>
+        <select name="appointment[location]" class="form-select" id="location" aria-label="Selecione o local">
+            <option selected disabled>Clique para selecionar o local</option>
+            <option value="braco">braço</option>
+            <option value="antebraco">antebraço</option>
+            <option value="perna">perna</option>
+            <option value="barriga">barriga</option>
+            <option value="outros">outros</option>
+        </select>
+        
+        <label for="status" class="form-label">Status:</label>
+        <select name="appointment[status]" class="form-select" id="status" aria-label="Selecione o status" required>
+            <option selected disabled>Clique para selecionar o local</option>
+            <option value="pendente">pendente</option>
+            <option value="confirmado">confirmado</option>
+            <option value="cancelado">cancelado</option>
+            <option value="completado">completado</option>
+        </select>
+        
+        <label for="client" class="form-label">Cliente:</label>
+        <select name="appointment[users_id]" class="form-select" id="client" aria-label="Selecione o cliente" required>
+            <option selected disabled>Clique para selecionar o Cliente</option>
+            <?php foreach ($users as $user) : ?>
+                <option value="<?= $user->id ?>"><?= $user->name ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
