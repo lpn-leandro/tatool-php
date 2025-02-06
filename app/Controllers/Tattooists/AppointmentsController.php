@@ -48,12 +48,12 @@ class AppointmentsController extends Controller
         $appointment->tattooists_id = $this->current_user->id;
 
         if ($appointment->save()) {
-            FlashMessage::success('Problema registrado com sucesso!');
+            FlashMessage::success('Agendamento registrado com sucesso!');
             $this->redirectTo(route('tattooists.appointments.index'));
         } else {
             FlashMessage::danger('Existem dados incorretos! Por verifique!');
             $users = $this->getUsers();
-            $title = 'Novo Problema';
+            $title = 'Novo Agendamento';
             $this->render('tattooists/appointments/new', compact('appointment','users', 'title'));
         }
     }
@@ -72,7 +72,7 @@ class AppointmentsController extends Controller
             return;
         }
 
-        $title = "Editar Problema #{$appointment->id}";
+        $title = "Editar Agendamento #{$appointment->id}";
         $this->render('tattooists/appointments/edit', compact('appointment', 'title', 'users'));
     }
 
@@ -103,7 +103,7 @@ class AppointmentsController extends Controller
         $appointment = $this->current_user->tattoistsAppointments()->findById($params['id']);
         $appointment->destroy();
 
-        FlashMessage::success('Problema removido com sucesso!');
+        FlashMessage::success('Agendamento removido com sucesso!');
         $this->redirectTo(route('tattooists.appointments.index'));
     }
 

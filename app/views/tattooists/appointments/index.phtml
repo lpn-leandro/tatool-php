@@ -13,8 +13,11 @@
 <table class="table">
     <thead>
         <th>ID</th>
-        <th>Date</th>
-        <th>User</th>
+        <th>Data</th>
+        <th>Cliente</th>
+        <th>Localização</th>
+        <th>Tamanho</th>
+        <th>Status</th>
         <th></th>
     </thead>
     <tbody>
@@ -25,6 +28,9 @@
                 <td><a href="<?= route('tattooists.appointments.show', ['id' => $appointment->id]) ?>">#<?= $appointment->id ?></a></td>
                 <td><?= $appointment->date ?></td>
                 <td><?= $appointment->user->name ?></td>
+                <td><?= $appointment->location ?></td>
+                <td><?= $appointment->size ?></td>
+                <td><?= $appointment->status ?></td>
                 <td>
                     <div class="d-flex flex-row-reverse">
                         <form action="<?= route('tattooists.appointments.destroy', ['id' => $appointment->id]) ?>" method="POST" class="m-0">

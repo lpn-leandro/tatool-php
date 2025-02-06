@@ -34,7 +34,7 @@ class AppointmentsController extends Controller
     {
         $appointment = $this->current_user->appointments()->new();
 
-        $title = 'Novo Problema';
+        $title = 'Novo Agendamento';
         $this->render('appointments/new', compact('appointment', 'title'));
     }
 
@@ -44,11 +44,11 @@ class AppointmentsController extends Controller
         $appointment = $this->current_user->appointments()->new($params['appointment']);
 
         if ($appointment->save()) {
-            FlashMessage::success('Problema registrado com sucesso!');
+            FlashMessage::success('Agendamento registrado com sucesso!');
             $this->redirectTo(route('appointments.index'));
         } else {
             FlashMessage::danger('Existem dados incorretos! Por verifique!');
-            $title = 'Novo Problema';
+            $title = 'Novo Agendamento';
             $this->render('appointments/new', compact('appointment', 'title'));
         }
     }
@@ -58,7 +58,7 @@ class AppointmentsController extends Controller
         $params = $request->getParams();
         $appointment = $this->current_user->appointments()->findById($params['id']);
 
-        $title = "Editar Problema #{$appointment->id}";
+        $title = "Editar Agendamento #{$appointment->id}";
         $this->render('appointments/edit', compact('appointment', 'title'));
     }
 
@@ -71,11 +71,11 @@ class AppointmentsController extends Controller
         $appointment->title = $params['title'];
 
         if ($appointment->save()) {
-            FlashMessage::success('Problema atualizado com sucesso!');
+            FlashMessage::success('Agendamento atualizado com sucesso!');
             $this->redirectTo(route('appointments.index'));
         } else {
             FlashMessage::danger('Existem dados incorretos! Por verifique!');
-            $title = "Editar Problema #{$appointment->id}";
+            $title = "Editar Agendamento #{$appointment->id}";
             $this->render('appointments/edit', compact('appointment', 'title'));
         }
     }
@@ -87,7 +87,7 @@ class AppointmentsController extends Controller
         $appointment = $this->current_user->appointments()->findById($params['id']);
         $appointment->destroy();
 
-        FlashMessage::success('Problema removido com sucesso!');
+        FlashMessage::success('Agendamento removido com sucesso!');
         $this->redirectTo(route('appointments.index'));
     }
 

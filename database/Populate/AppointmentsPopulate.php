@@ -15,7 +15,7 @@ class AppointmentsPopulate
        $numberOfAppointments = 10;
 
        for ($i = 0; $i < $numberOfAppointments; $i++) {
-           $appointment = new Appointment(['date' => '2025-12-31 10:00:00', 'size' => 'P',  'location' => 'Braço', 'status' => 'Pendente', 'users_id' => $user->id, 'tattooists_id' => $tattoist->id]);
+           $appointment = new Appointment(['date' => '2025-12-31 10:00:00', 'size' => 'medio',  'location' => 'barriga', 'status' => 'pendente', 'users_id' => $user->id, 'tattooists_id' => $tattoist->id]);
            $appointment->save();
        }
 
