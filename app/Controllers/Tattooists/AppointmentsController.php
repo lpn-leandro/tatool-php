@@ -27,7 +27,7 @@ class AppointmentsController extends Controller
         $appointment = $this->current_user->tattoistsAppointments()->findById($params['id']);
 
         $title = "Visualização do Agendamento #{$appointment->id}";
-        $this->render('appointments/show', compact('appointment', 'name'));
+        $this->render('tattooists/appointments/show', compact('appointment', 'title'));
     }
 
     public function new(): void

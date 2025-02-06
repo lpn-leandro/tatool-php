@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Data</h5>
+        <?= $appointment->date ?>
+        <h5 class="card-title">Tamanho</h5>
+        <?= $appointment->size ?>
+        <h5 class="card-title">Localização</h5>
+        <?= $appointment->location ?>
+        <h5 class="card-title">Status</h5>
+        <?= $appointment->status ?>
+        <h5 class="card-title">Cliente</h5>
+        <?= $appointment->user->name ?>
+    </div>
+</div>
