@@ -31,6 +31,5 @@ class HomeController extends Controller
         } else {
             $this->render('appointments/appointments', compact('title'));
         }
-        
     }
 }

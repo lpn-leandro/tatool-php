@@ -17,11 +17,11 @@ use DateTime;
  * @property int $users_id
  * @property int $tattooists_id
  * @property User $user
- * 
+ *
  */
 class Appointment extends Model
 {
-    protected static string $table = 'appointments';    
+    protected static string $table = 'appointments';
     protected static array $columns = ['date', 'size', 'location', 'status', 'users_id', 'tattooists_id'];
 
 
@@ -39,6 +39,4 @@ class Appointment extends Model
     {
         Validations::notEmpty('date', $this);
     }
-
-
 }

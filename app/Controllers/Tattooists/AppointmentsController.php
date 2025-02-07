@@ -10,17 +10,17 @@ use Lib\Authentication\Auth;
 
 class AppointmentsController extends Controller
 {
-  public function index(Request $request): void
-  {
-    $title = 'Agendamentos';
-    $user = Auth::user();
-    $paginator = $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam('page', 1));
-    $appointments = $paginator->registers();
-   
-    $this->render('tattooists/appointments/index', compact('paginator','appointments','title'));
-  }
+    public function index(Request $request): void
+    {
+        $title = 'Agendamentos';
+        $user = Auth::user();
+        $paginator = $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam('page', 1));
+        $appointments = $paginator->registers();
 
-  public function show(Request $request): void
+        $this->render('tattooists/appointments/index', compact('paginator', 'appointments', 'title'));
+    }
+
+    public function show(Request $request): void
     {
         $params = $request->getParams();
 
@@ -54,7 +54,7 @@ class AppointmentsController extends Controller
             FlashMessage::danger('Existem dados incorretos! Por verifique!');
             $users = $this->getUsers();
             $title = 'Novo Agendamento';
-            $this->render('tattooists/appointments/new', compact('appointment','users', 'title'));
+            $this->render('tattooists/appointments/new', compact('appointment', 'users', 'title'));
         }
     }
 
@@ -65,7 +65,7 @@ class AppointmentsController extends Controller
         $appointment = $this->current_user->tattoistsAppointments()->findById($params['id']);
 
         $users = $this->getUsers();
-        
+
         if (!$appointment) {
             FlashMessage::danger('Agendamento não encontrado!');
             $this->redirectTo(route('tattooists.appointments.index'));
@@ -107,11 +107,12 @@ class AppointmentsController extends Controller
         $this->redirectTo(route('tattooists.appointments.index'));
     }
 
-    private function getUsers()
+    /**
+     * @return array<User>
+     */
+    private function getUsers(): array
     {
-            //return User::all();   
+            //return User::all();
             return User::where(['user_type' => 'U']);
-
-
     }
 }

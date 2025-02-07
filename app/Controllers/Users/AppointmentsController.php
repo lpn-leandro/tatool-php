@@ -9,30 +9,30 @@ use Lib\Authentication\Auth;
 
 class AppointmentsController extends Controller
 {
-  public function index(Request $request): void
-  {
-    $title = 'Agendamentos';
-    $user = Auth::user();
-    $paginator = $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam('page', 1));
-    $appointments = $paginator->registers();
-   
-   
-      $this->render('tattooists/appointments/index', compact('paginator','appointments','title'));
-  }
+    public function index(Request $request): void
+    {
+        $title = 'Agendamentos';
+        $user = Auth::user();
+        $paginator = $this->current_user->userAppointments()->paginate(page: $request->getParam('page', 1));
+        $appointments = $paginator->registers();
 
-  public function show(Request $request): void
+
+        $this->render('tattooists/appointments/index', compact('paginator', 'appointments', 'title'));
+    }
+
+    public function show(Request $request): void
     {
         $params = $request->getParams();
 
-        $appointment = $this->current_user->appointments()->findById($params['id']);
+        $appointment = $this->current_user->userAppointments()->findById($params['id']);
 
         $title = "Visualização do Agendamento #{$appointment->id}";
-        $this->render('appointments/show', compact('appointment', 'name'));
+        $this->render('appointments/show', compact('appointment', 'title'));
     }
 
     public function new(): void
     {
-        $appointment = $this->current_user->appointments()->new();
+        $appointment = $this->current_user->userAppointments()->new();
 
         $title = 'Novo Agendamento';
         $this->render('appointments/new', compact('appointment', 'title'));
@@ -41,7 +41,7 @@ class AppointmentsController extends Controller
     public function create(Request $request): void
     {
         $params = $request->getParams();
-        $appointment = $this->current_user->appointments()->new($params['appointment']);
+        $appointment = $this->current_user->userAppointments()->new($params['appointment']);
 
         if ($appointment->save()) {
             FlashMessage::success('Agendamento registrado com sucesso!');
@@ -56,7 +56,7 @@ class AppointmentsController extends Controller
     public function edit(Request $request): void
     {
         $params = $request->getParams();
-        $appointment = $this->current_user->appointments()->findById($params['id']);
+        $appointment = $this->current_user->userAppointments()->findById($params['id']);
 
         $title = "Editar Agendamento #{$appointment->id}";
         $this->render('appointments/edit', compact('appointment', 'title'));
@@ -67,8 +67,8 @@ class AppointmentsController extends Controller
         $id = $request->getParam('id');
         $params = $request->getParam('appointment');
 
-        $appointment = $this->current_user->appointments()->findById($id);
-        $appointment->title = $params['title'];
+        $appointment = $this->current_user->userAppointments()->findById($id);
+        //$appointment->title = $params['title'];
 
         if ($appointment->save()) {
             FlashMessage::success('Agendamento atualizado com sucesso!');
@@ -84,11 +84,10 @@ class AppointmentsController extends Controller
     {
         $params = $request->getParams();
 
-        $appointment = $this->current_user->appointments()->findById($params['id']);
+        $appointment = $this->current_user->userAppointments()->findById($params['id']);
         $appointment->destroy();
 
         FlashMessage::success('Agendamento removido com sucesso!');
         $this->redirectTo(route('appointments.index'));
     }
-
 }
