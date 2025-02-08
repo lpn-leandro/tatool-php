@@ -17,7 +17,8 @@ Route::get('/', [AuthenticationsController::class, 'destroy'])->name('users.logo
 
 Route::middleware('user')->group(callback: function () {
     Route::get('/user', [HomeController::class, 'index'])->name('home.userIndex');
-    Route::get('/user/appointments', [UsersAppointmentsController::class, 'index'])->name('home.appointments');
+    Route::get('/user/appointments', [UsersAppointmentsController::class, 'index'])
+    ->name('home.appointments');
 });
 
 Route::middleware('tattooist')->group(function () {
@@ -51,17 +52,25 @@ Route::middleware('tattooist')->group(function () {
 });
 
 // Create User Appointment
-//Route::get('/appointments/new', [UsersAppointmentsController::class, 'new'])->name('appointments.new');
-//Route::post('/appointments', [UsersAppointmentsController::class, 'create'])->name('appointments.create');
+Route::get('/users/appointments/new', [UsersAppointmentsController::class, 'new'])
+->name('user.appointments.new');
+Route::post('/users/appointments', [UsersAppointmentsController::class, 'create'])
+->name('user.appointments.create');
 
 // Retrieve User Appointment
-//Route::get('/appointments', [UsersAppointmentsController::class, 'index'])->name('appointments.index');
-//Route::get('/appointments/page/{page}', [UsersAppointmentsController::class, 'index'])->name('appointments.paginate');
-//Route::get('/appointments/{id}', [UsersAppointmentsController::class, 'show'])->name('appointments.show');
+Route::get('/users/appointments', [UsersAppointmentsController::class, 'index'])
+->name('user.appointments.index');
+Route::get('/users/appointments/page/{page}', [UsersAppointmentsController::class, 'index'])
+->name('user.appointments.paginate');
+Route::get('/users/appointments/{id}', [UsersAppointmentsController::class, 'show'])
+->name('user.appointments.show');
 
 // Update User Appointment
-//Route::get('/appointments/{id}/edit', [UsersAppointmentsController::class, 'edit'])->name('appointments.edit');
-//Route::put('/appointments/{id}', [UsersAppointmentsController::class, 'update'])->name('appointments.update');
+Route::get('/users/appointments/{id}/edit', [UsersAppointmentsController::class, 'edit'])
+->name('user.appointments.edit');
+Route::put('/users/appointments/{id}', [UsersAppointmentsController::class, 'update'])
+->name('user.appointments.update');
 
 // Delete User Appointment
-//Route::delete('/appointments/{id}', [UsersAppointmentsController::class, 'destroy'])->name('appointments.destroy');
+Route::delete('/users/appointments/{id}', [UsersAppointmentsController::class, 'destroy'])
+->name('user.appointments.destroy');

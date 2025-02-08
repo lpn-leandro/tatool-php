@@ -17,7 +17,7 @@ class AppointmentsController extends Controller
         $appointments = $paginator->registers();
 
 
-        $this->render('tattooists/appointments/index', compact('paginator', 'appointments', 'title'));
+        $this->render('users/appointments/index', compact('paginator', 'appointments', 'title'));
     }
 
     public function show(Request $request): void
