@@ -1,4 +1,4 @@
-<form action="<?= route('tattooists.appointments.update', ['id' => $appointment->id]) ?>" method="POST" class="<?= $appointment->hasErrors() ? '' : 'was-validated' ?>" novalidate>
+<form action="<?= route('user.appointments.update', ['id' => $appointment->id]) ?>" method="POST" class="<?= $appointment->hasErrors() ? '' : 'was-validated' ?>" novalidate>
     <input type="hidden" name="_method" value="PUT">
     <div class="mb-3">
 
@@ -30,9 +30,9 @@
         </select>
 
         <label for="client" class="form-label">Cliente:</label>
-        <select name="appointment[users_id]" class="form-select" id="client" aria-label="Selecione o cliente" required>
-            <?php foreach ($users as $user) : ?>
-                <option value="<?= $user->id ?>" <?= $user->id === $appointment->users_id ? 'selected' : '' ?>> <?= $user->name ?></option>
+        <select name="appointment[tattooists_id]" class="form-select" id="client" aria-label="Selecione o Tatuador" required>
+            <?php foreach ($tattooists as $tattooist) : ?>
+                <option value="<?= $tattooist->id ?>" <?= $tattooist->id === $appointment->tattooists_id ? 'selected' : '' ?>> <?= $tattooist->name ?></option>
             <?php endforeach; ?>
         </select>
     </div>
