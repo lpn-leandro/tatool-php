@@ -1,4 +1,4 @@
-<form action="<?= route('tattooists.appointments.create') ?>" method="POST" class="<?= $appointment->hasErrors() ? '' : 'was-validated' ?>" novalidate>
+<form action="<?= route('user.appointments.create') ?>" method="POST" class="<?= $appointment->hasErrors() ? '' : 'was-validated' ?>" novalidate>
     <div class="mb-3">
         
     <label for="date" class="form-label">Data do agendamento:</label>
@@ -31,11 +31,11 @@
             <option value="completado">completado</option>
         </select>
         
-        <label for="client" class="form-label">Cliente:</label>
-        <select name="appointment[users_id]" class="form-select" id="client" aria-label="Selecione o cliente" required>
-            <option selected disabled>Clique para selecionar o Cliente</option>
-            <?php foreach ($users as $user) : ?>
-                <option value="<?= $user->id ?>"><?= $user->name ?></option>
+        <label for="client" class="form-label">Tatuador:</label>
+        <select name="appointment[tattooists_id]" class="form-select" id="client" aria-label="Selecione o tatuador" required>
+            <option selected disabled>Clique para selecionar o Tatuador</option>
+            <?php foreach ($tattooists as $tattooist) : ?>
+                <option value="<?= $tattooist->id ?>"><?= $tattooist->name ?></option>
             <?php endforeach; ?>
         </select>
     </div>
