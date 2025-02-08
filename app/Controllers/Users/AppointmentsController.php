@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Users;
 
+use App\Models\User;
 use Core\Http\Controllers\Controller;
 use Core\Http\Request;
 use Lib\FlashMessage;
@@ -16,8 +17,7 @@ class AppointmentsController extends Controller
         $paginator = $this->current_user->userAppointments()->paginate(page: $request->getParam('page', 1));
         $appointments = $paginator->registers();
 
-
-        $this->render('tattooists/appointments/index', compact('paginator', 'appointments', 'title'));
+        $this->render('users/appointments/index', compact('paginator', 'appointments', 'title'));
     }
 
     public function show(Request $request): void
@@ -27,39 +27,55 @@ class AppointmentsController extends Controller
         $appointment = $this->current_user->userAppointments()->findById($params['id']);
 
         $title = "Visualização do Agendamento #{$appointment->id}";
-        $this->render('appointments/show', compact('appointment', 'title'));
+        $this->render('users/appointments/show', compact('appointment', 'title'));
     }
 
     public function new(): void
     {
         $appointment = $this->current_user->userAppointments()->new();
 
+        $tattooists = $this->getTattooists();
+
         $title = 'Novo Agendamento';
-        $this->render('appointments/new', compact('appointment', 'title'));
+        $this->render('users/appointments/new', compact('appointment', 'tattooists', 'title'));
     }
+
 
     public function create(Request $request): void
     {
         $params = $request->getParams();
         $appointment = $this->current_user->userAppointments()->new($params['appointment']);
 
+        /** @var \App\Models\Appointment $appointment */
+        $appointment->users_id = $this->current_user->id;
+
         if ($appointment->save()) {
             FlashMessage::success('Agendamento registrado com sucesso!');
-            $this->redirectTo(route('appointments.index'));
+            $this->redirectTo(route('user.appointments.index'));
         } else {
             FlashMessage::danger('Existem dados incorretos! Por verifique!');
+            $tattooists = $this->getTattooists();
             $title = 'Novo Agendamento';
-            $this->render('appointments/new', compact('appointment', 'title'));
+            $this->render('users/appointments/new', compact('appointment', 'tattooists', 'title'));
         }
     }
 
     public function edit(Request $request): void
     {
         $params = $request->getParams();
+        //dd($params);
         $appointment = $this->current_user->userAppointments()->findById($params['id']);
 
+        $tattooists = $this->getTattooists();
+
+        if (!$appointment) {
+            FlashMessage::danger('Agendamento não encontrado!');
+            $this->redirectTo(route('user.appointments.index'));
+            return;
+        }
+
         $title = "Editar Agendamento #{$appointment->id}";
-        $this->render('appointments/edit', compact('appointment', 'title'));
+        $this->render('users/appointments/edit', compact('appointment', 'title', 'tattooists'));
     }
 
     public function update(Request $request): void
@@ -68,15 +84,15 @@ class AppointmentsController extends Controller
         $params = $request->getParam('appointment');
 
         $appointment = $this->current_user->userAppointments()->findById($id);
-        //$appointment->title = $params['title'];
+        //$appointment->users_id = $params['users_id'];
 
         if ($appointment->save()) {
             FlashMessage::success('Agendamento atualizado com sucesso!');
-            $this->redirectTo(route('appointments.index'));
+            $this->redirectTo(route('user.appointments.index'));
         } else {
             FlashMessage::danger('Existem dados incorretos! Por verifique!');
             $title = "Editar Agendamento #{$appointment->id}";
-            $this->render('appointments/edit', compact('appointment', 'title'));
+            $this->render('users/appointments/edit', compact('appointment', 'title'));
         }
     }
 
@@ -88,6 +104,14 @@ class AppointmentsController extends Controller
         $appointment->destroy();
 
         FlashMessage::success('Agendamento removido com sucesso!');
-        $this->redirectTo(route('appointments.index'));
+        $this->redirectTo(route('user.appointments.index'));
+    }
+
+    /**
+     * @return array<User>
+     */
+    private function getTattooists(): array
+    {
+        return User::where(['user_type' => 'T']);
     }
 }
