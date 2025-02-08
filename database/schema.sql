@@ -58,10 +58,8 @@ CREATE TABLE appointments
   id           INT AUTO_INCREMENT PRIMARY KEY,
   date         DATETIME,
   size         VARCHAR(50),
-  image_url    VARCHAR(255),
   location     VARCHAR(255),
   status       enum ('pendente', 'confirmado', 'cancelado', 'completado') DEFAULT 'pendente',
-  created_at   TIMESTAMP                                                  DEFAULT CURRENT_TIMESTAMP,
   users_id     INT NOT NULL REFERENCES users (id) ON DELETE RESTRICT,
   tattooists_id INT NOT NULL REFERENCES users (id) ON DELETE RESTRICT
 );
@@ -70,7 +68,7 @@ DROP TABLE IF EXISTS works_users;
 CREATE TABLE works_users
 (
   works_id INT NOT NULL REFERENCES works (id) ON DELETE RESTRICT,
-  user_id  INT NOT NULL REFERENCES users (id) ON DELETE RESTRICT
+  users_id  INT NOT NULL REFERENCES users (id) ON DELETE RESTRICT
 );
 
 SET foreign_key_checks = 1;

@@ -19,4 +19,17 @@ class HomeController extends Controller
             $this->render('home/userIndex', compact('title'));
         }
     }
+
+
+    public function appointments(Request $request): void
+    {
+        $user = Auth::user();
+
+        $title = 'Agendamentos';
+        if ($user->isTattooist()) {
+            $this->render('appointments/tattooistAppointments', compact('title'));
+        } else {
+            $this->render('appointments/appointments', compact('title'));
+        }
+    }
 }

@@ -1,0 +1,41 @@
+<form action="<?= route('tattooists.appointments.update', ['id' => $appointment->id]) ?>" method="POST" class="<?= $appointment->hasErrors() ? '' : 'was-validated' ?>" novalidate>
+    <input type="hidden" name="_method" value="PUT">
+    <div class="mb-3">
+
+        <label for="date" class="form-label">Data do agendamento:</label>
+        <input type="datetime-local" value="<?= $appointment->date ?>" name="appointment[date]" class="form-control" id="date" required>
+
+        <label for="size" class="form-label">Tamanho:</label>
+        <select name="appointment[size]" class="form-select" aria-label="Selecione o tamanho">
+            <option value="1" <?= $appointment->size == 1 ? 'selected' : '' ?>> Pequeno (20x20 até 30x30)</option>
+            <option value="2" <?= $appointment->size == 2 ? 'selected' : '' ?>>Médio (30x30 até 40x40)</option>
+            <option value="3" <?= $appointment->size == 3 ? 'selected' : '' ?>>Grande (40x40 até 50x50)</option>
+        </select>
+
+        <label for="location" class="form-label">Local da tatuagem:</label>
+        <select name="appointment[location]" class="form-select" id="location" aria-label="Selecione o local">
+            <option value="braco" <?= $appointment->location == 'braco' ? 'selected' : '' ?>>braço</option>
+            <option value="antebraco" <?= $appointment->location == 'antebraco' ? 'selected' : '' ?>>antebraço</option>
+            <option value="perna" <?= $appointment->location == 'perna' ? 'selected' : '' ?>>perna</option>
+            <option value="barriga" <?= $appointment->location == 'barriga' ? 'selected' : '' ?>>barriga</option>
+            <option value="outros" <?= $appointment->location == 'outros' ? 'selected' : '' ?>>outros</option>
+        </select>
+
+        <label for="status" class="form-label">Status:</label>
+        <select name="appointment[status]" class="form-select" id="status" aria-label="Selecione o status" required>
+            <option value="pendente" <?= $appointment->status == 'pendente' ? 'selected' : '' ?>>pendente</option>
+            <option value="confirmado" <?= $appointment->status == 'confirmado' ? 'selected' : '' ?>>confirmado</option>
+            <option value="cancelado" <?= $appointment->status == 'cancelado' ? 'selected' : '' ?>>cancelado</option>
+            <option value="completado" <?= $appointment->status == 'completado' ? 'selected' : '' ?>>completado</option>
+        </select>
+
+        <label for="client" class="form-label">Cliente:</label>
+        <select name="appointment[users_id]" class="form-select" id="client" aria-label="Selecione o cliente" required>
+            <?php foreach ($users as $user) : ?>
+                <option value="<?= $user->id ?>" <?= $user->id === $appointment->users_id ? 'selected' : '' ?>> <?= $user->name ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
