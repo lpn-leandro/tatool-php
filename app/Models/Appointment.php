@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Core\Database\ActiveRecord\Model;
 use Core\Database\ActiveRecord\BelongsTo;
 use Core\Database\ActiveRecord\BelongsToMany;
 use Lib\Validations;
-use Core\Database\ActiveRecord\Model;
 use DateTime;
 
 /**
@@ -24,13 +24,12 @@ class Appointment extends Model
     protected static string $table = 'appointments';
     protected static array $columns = ['date', 'size', 'location', 'status', 'users_id', 'tattooists_id'];
 
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'users_id');
     }
 
-    public function tattooists_id(): BelongsTo
+    public function tattooist(): BelongsTo
     {
         return $this->belongsTo(User::class, 'tattooists_id');
     }

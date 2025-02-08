@@ -40,11 +40,13 @@ class AppointmentsController extends Controller
         $this->render('tattooists/appointments/new', compact('appointment', 'users', 'title'));
     }
 
+
     public function create(Request $request): void
     {
         $params = $request->getParams();
         $appointment = $this->current_user->tattoistsAppointments()->new($params['appointment']);
 
+        /** @var \App\Models\Appointment $appointment */
         $appointment->tattooists_id = $this->current_user->id;
 
         if ($appointment->save()) {
