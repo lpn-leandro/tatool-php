@@ -21,7 +21,9 @@
                                                 ?>">Agendamentos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Perfil</a>
+                    <a class="nav-link" href="<?php
+                                                echo $this->current_user && $this->current_user->isTattooist() ? route('profile.show') : route('profile.show');
+                                                ?>"">Perfil</a>
                 </li>
             </ul>
 
