@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Users;
 
 use Core\Http\Controllers\Controller;
 
@@ -9,7 +9,7 @@ class ProfileController extends Controller
     public function show(): void
     {
         $title = 'Meu Perfil';
-        $this->render('profile/show', compact('title'));
+        $this->render('users/profile/show', compact('title'));
     }
 
     public function updateAvatar(): void
@@ -17,6 +17,6 @@ class ProfileController extends Controller
         $image = $_FILES['user_avatar'];
 
         $this->current_user->avatar()->update($image);
-        $this->redirectTo(route('profile.show'));
+        $this->redirectTo(route('user.profile.show'));
     }
 }

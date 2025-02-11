@@ -1,9 +1,13 @@
 <?php
 
-use App\Controllers\Tattooists\AppointmentsController as TattooistsAppointmentsController;
-use App\Controllers\Users\AppointmentsController as UsersAppointmentsController;
 use App\Controllers\HomeController;
-use App\Controllers\ProfileController;
+
+use App\Controllers\Tattooists\AppointmentsController as TattooistsAppointmentsController;
+use App\Controllers\Tattooists\ProfileController as TattooistsProfileController;
+
+use App\Controllers\Users\AppointmentsController as UsersAppointmentsController;
+use App\Controllers\Users\ProfileController as UsersProfileController;
+
 use Core\Router\Route;
 use App\Controllers\AuthenticationsController;
 
@@ -44,6 +48,12 @@ Route::middleware('user')->group(callback: function () {
     // Delete User Appointment
     Route::delete('/users/appointments/{id}', [UsersAppointmentsController::class, 'destroy'])
         ->name('user.appointments.destroy');
+
+        // User Profile
+Route::get('/users/profile', [UsersProfileController::class, 'show'])
+->name('user.profile.show');
+Route::post('/users/profile/avatar', [UsersProfileController::class, 'updateAvatar'])
+->name('user.profile.avatar');
 });
 
 Route::middleware('tattooist')->group(function () {
@@ -74,10 +84,11 @@ Route::middleware('tattooist')->group(function () {
     // Delete Tattooist Appointment
     Route::delete('/tattooist/appointments/{id}', [TattooistsAppointmentsController::class, 'destroy'])
         ->name('tattooists.appointments.destroy');
+
+        // Tattooists Profile
+Route::get('/tattooist/profile', [TattooistsProfileController::class, 'show'])
+->name('tattooist.profile.show');
+Route::post('/tattooist/profile/avatar', [TattooistsProfileController::class, 'updateAvatar'])
+->name('tattooist.profile.avatar');
+
 });
-
-
-
-// Profile
-Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar');
