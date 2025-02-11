@@ -1,8 +1,8 @@
 <div class="d-flex">
     <div>
-        <img id="image_preview" class="avatar rounded img-thumbnail" src="<//?= $this->current_user->avatar()->path() ?>" alt="avatar">
+        <img id="image_preview" class="avatar rounded img-thumbnail" src="<?= $this->current_user->avatar()->path() ?>" alt="avatar">
 
-        <form action="<//?= route('profile.avatar') ?>" method="POST" enctype="multipart/form-data">
+        <form action="<?= route('profile.avatar') ?>" method="POST" enctype="multipart/form-data">
             <input id="image_preview_input" type="file" name="user_avatar" id="user_avatar">
             <div class="d-grid mt-2">
                 <button id="image_preview_submit" type="submit" class="btn btn-fill btn-primary">Atualizar</button>
@@ -17,7 +17,7 @@
         </div>
         <ul class="list-unstyled mt-2">
             <li>
-                <span>Email: <!--<//?= $this->current_user->email ?> --></span>
+                <span>Email: <<?= $this->current_user->email ?></span>
             </li>
         </ul>
     </div>

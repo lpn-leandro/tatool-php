@@ -10,6 +10,7 @@ CREATE TABLE users
   user_type  ENUM ('T', 'U')     NOT NULL COMMENT 'T = Tattooist, U = User',
   bio        TEXT,
   rate_id    INT,
+  avatar_name VARCHAR(65),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
