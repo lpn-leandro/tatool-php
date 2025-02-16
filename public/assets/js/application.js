@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!(imagePreviewInput && preview)) return;
 
   imagePreviewInput.style.display = "none";
-  imagePreviewSubmit.style.display = "none";
+  imagePreviewSubmit.style.display = "block";
 
   preview.addEventListener("click", function () {
     imagePreviewInput.click();
