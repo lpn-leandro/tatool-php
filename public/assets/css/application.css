@@ -23,6 +23,10 @@ nav.navbar {
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.rounded > h3 {
+  text-align: center;
+}
+
 .avatar {
   width: 315px;
   height: 315px;

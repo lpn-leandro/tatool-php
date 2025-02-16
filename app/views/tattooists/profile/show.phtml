@@ -1,24 +1,29 @@
-<div class="d-flex">
+<div class="d-flex justify-content-around">
     <div>
+        <div class="rounded">
+            <h3><?= $this->current_user->name ?></h3>
+        </div>
+        
         <img id="image_preview" class="avatar rounded img-thumbnail" src="<?= $this->current_user->avatar()->path() ?>" alt="avatar">
 
         <form action="<?= route('tattooist.profile.avatar') ?>" method="POST" enctype="multipart/form-data">
             <input id="image_preview_input" type="file" name="user_avatar" id="user_avatar">
+            
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" id="user_email" name="user_email" value="<?= $this->current_user->email ?>" disabled>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Sobre</label>
+                <textarea class="form-control" rows="3" id="user_bio" name="user_bio"> <?= $this->current_user->bio ?></textarea>
+            </div>
+
             <div class="d-grid mt-2">
                 <button id="image_preview_submit" type="submit" class="btn btn-fill btn-primary">Atualizar</button>
             </div>
+
         </form>
 
-    </div>
-    <div class="mx-5">
-        <div class="rounded">
-            <h3><?= $this->current_user->name ?></h3>
-            <span class="text-primary">Tatuador</span>
-        </div>
-        <ul class="list-unstyled mt-2">
-            <li>
-                <span>Email: <?= $this->current_user->email ?></span>
-            </li>
-        </ul>
     </div>
 </div>
