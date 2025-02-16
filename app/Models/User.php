@@ -16,11 +16,14 @@ use Core\Database\ActiveRecord\HasMany;
  * @property 'T'|'U' $user_type
  * @property string|null $bio
  * @property int|null $rate_id
+ * @property string|null $avatar_name
  */
 class User extends Model
 {
     protected static string $table = 'users';
-    protected static array $columns = ['name', 'email', 'encrypted_password', 'user_type', 'bio', 'rate_id', 'avatar_name'];
+    protected static array $columns = [
+        'name', 'email', 'encrypted_password', 'user_type', 'bio', 'rate_id', 'avatar_name'
+    ];
 
     protected ?string $password = null;
     protected ?string $password_confirmation = null;

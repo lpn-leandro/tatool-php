@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use Core\Constants\Constants;
-use Core\Database\ActiveRecord\Model;
 use Core\Database\Database;
 use PDO;
 
@@ -13,8 +13,9 @@ class ProfileAvatar
     private array $image;
 
     public function __construct(
-        private Model $model
-    ) {}
+        private User $model
+    ) {
+    }
 
     public function path(): string
     {
