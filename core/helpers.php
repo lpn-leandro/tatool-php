@@ -4,10 +4,10 @@ use Core\Debug\Debugger;
 use Core\Router\Router;
 
 if (!function_exists('dd')) {
-  function dd(): void
-  {
-    Debugger::dd(...func_get_args());
-  }
+    function dd(): void
+    {
+        Debugger::dd(...func_get_args());
+    }
 }
 
 if (!function_exists('route')) {
@@ -16,8 +16,8 @@ if (!function_exists('route')) {
    * @param mixed[] $params
    * @return string
    */
-  function route(string $name, $params = []): string
-  {
-    return Router::getInstance()->getRoutePathByName($name, $params);
-  }
+    function route(string $name, $params = []): string
+    {
+        return Router::getInstance()->getRoutePathByName($name, $params);
+    }
 }

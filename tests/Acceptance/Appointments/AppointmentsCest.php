@@ -30,11 +30,11 @@ class AppointmentsCest extends BaseAcceptanceCest
         $user->save();
 
         $appointment = new Appointment([
-            'date' => '2025-12-31 10:00:00', 
-            'size' => 'medio',  
-            'location' => 'barriga', 
-            'status' => 'pendente', 
-            'users_id' => $user->id, 
+            'date' => '2025-12-31 10:00:00',
+            'size' => 'medio',
+            'location' => 'barriga',
+            'status' => 'pendente',
+            'users_id' => $user->id,
             'tattooists_id' => $tattoist->id]);
         $appointment->save();
 
