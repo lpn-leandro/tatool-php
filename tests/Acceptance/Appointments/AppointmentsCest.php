@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Acceptance\Appointmentss;
+namespace Tests\Acceptance\Appointments;
 
 use App\Models\Appointment;
 use App\Models\User;
