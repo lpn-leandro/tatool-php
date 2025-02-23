@@ -53,7 +53,7 @@ class AppointmentsController extends Controller
             FlashMessage::success('Agendamento registrado com sucesso!');
             $this->redirectTo(route('tattooists.appointments.index'));
         } else {
-            FlashMessage::danger('Existem dados incorretos! Por verifique!');
+            FlashMessage::danger('Existem dados incorretos! Verifique!');
             $users = $this->getUsers();
             $title = 'Novo Agendamento';
             $this->render('tattooists/appointments/new', compact('appointment', 'users', 'title'));
@@ -84,17 +84,21 @@ class AppointmentsController extends Controller
         $params = $request->getParam('appointment');
 
         $appointment = $this->current_user->tattoistsAppointments()->findById($id);
-        //$appointment->users_id = $params['users_id'];
 
-        //dd($id, $params, $this->current_user->tattoistsAppointments()->findById($id));
+        $appointment->date = $params['date'];
+        $appointment->size = $params['size'];
+        $appointment->location = $params['location'];
+        $appointment->status = $params['status'];
+        $appointment->users_id = $params['users_id'];
 
         if ($appointment->save()) {
             FlashMessage::success('Agendamento atualizado com sucesso!');
             $this->redirectTo(route('tattooists.appointments.index'));
         } else {
-            FlashMessage::danger('Existem dados incorretos! Por verifique!');
+            FlashMessage::danger('Existem dados incorretos! Por favor, verifique!');
             $title = "Editar Agendamento #{$appointment->id}";
-            $this->render('tattooist/appointments/edit', compact('appointment', 'title'));
+            $users = $this->getUsers();
+            $this->render('tattooists/appointments/edit', compact('appointment', 'title', 'users'));
         }
     }
 
