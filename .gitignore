@@ -23,3 +23,7 @@ html
 
 # Ignore phpStorm files
 .idea
+
+# Ignore Acceptance tests _output folder
+tests/Acceptance/_output/*
+!tests/Acceptance/_output/.gitkeep
