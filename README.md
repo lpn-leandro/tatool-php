@@ -69,6 +69,16 @@ ou
 $ ./run test
 ```
 
+#### Run Acceptance tests
+
+```
+$ ./run codecept build
+```
+
+```
+$ ./run test:browser
+```
+
 #### Run the linters
 
 [PHPCS](https://github.com/PHPCSStandards/PHP_CodeSniffer/)
