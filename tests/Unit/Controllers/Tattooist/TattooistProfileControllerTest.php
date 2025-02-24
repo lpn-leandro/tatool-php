@@ -18,14 +18,14 @@ class TattooistProfileControllerTest extends ControllerTestCase
         parent::setUp();
         $this->createUser();
         $this->avatarPath = Constants::rootPath()->join('tests/files/avatar_test.jpg');
-        $this->avatarUploadPath = Constants::rootPath()->join('public/assets/uploads/users/' . $this->user->id . '/avatar.jpg');
+        $this->avatarUploadPath = Constants::rootPath()->join('public/assets/uploads/users' . '/' .$this->user->id . '/avatar.jpg');
     }
 
     private function createUser(): void
     {
         $this->user = new User([
             'name' => 'Tatuador 1',
-            'email' => 'tatuador@example.com',
+            'email' => 'tatuadorteste@example.com',
             'password' => '123456',
             'password_confirmation' => '123456',
             'user_type' => 'T',
@@ -54,7 +54,7 @@ class TattooistProfileControllerTest extends ControllerTestCase
         // Login first
         $resp = $client->post('/login', [
             'form_params' => [
-                'user[email]' => 'tatuador@example.com',
+                'user[email]' => 'tatuadorteste@example.com',
                 'user[password]' => '123456'
             ],
             'cookies' => $cookieJar
