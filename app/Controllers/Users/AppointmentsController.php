@@ -84,7 +84,12 @@ class AppointmentsController extends Controller
         $params = $request->getParam('appointment');
 
         $appointment = $this->current_user->userAppointments()->findById($id);
-        //$appointment->users_id = $params['users_id'];
+
+        $appointment->date = $params['date'];
+        $appointment->size = $params['size'];
+        $appointment->location = $params['location'];
+        $appointment->status = $params['status'];
+        $appointment->tattooists_id = $params['tattooists_id'];
 
         if ($appointment->save()) {
             FlashMessage::success('Agendamento atualizado com sucesso!');
@@ -92,7 +97,8 @@ class AppointmentsController extends Controller
         } else {
             FlashMessage::danger('Existem dados incorretos! Por verifique!');
             $title = "Editar Agendamento #{$appointment->id}";
-            $this->render('users/appointments/edit', compact('appointment', 'title'));
+            $tattooists = $this->getTattooists();
+            $this->render('users/appointments/edit', compact('appointment', 'title', 'tattooists'));
         }
     }
 
