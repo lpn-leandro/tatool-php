@@ -45,6 +45,9 @@ jobs:
       - name: Up containers
         run: ./run up -d
 
+      - name: Setup Uploads assets permissions
+        run: sudo chown -R www-data:www-data public/assets/uploads
+
       - name: See containers
         run: ./run ps
 
