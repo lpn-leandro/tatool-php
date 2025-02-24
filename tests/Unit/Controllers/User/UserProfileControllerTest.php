@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests\Unit\Controllers;
+namespace Tests\Unit\Controllers\User;
 
 use App\Models\User;
+use Tests\Unit\Controllers\ControllerTestCase;
 
 class UserProfileControllerTest extends ControllerTestCase
 {

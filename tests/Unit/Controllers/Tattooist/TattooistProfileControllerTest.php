@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests\Unit\Controllers;
+namespace Tests\Unit\Controllers\Tattooist;
 
 use App\Models\User;
+use Tests\Unit\Controllers\ControllerTestCase;
 use Core\Constants\Constants;
 use GuzzleHttp\Client;
 use Symfony\Component\Finder\Finder;

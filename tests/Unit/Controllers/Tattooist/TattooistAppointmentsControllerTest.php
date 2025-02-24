@@ -1,9 +1,10 @@
 <?php
 
-namespace Tests\Unit\Controllers;
+namespace Tests\Unit\Controllers\Tattooist;
 
 use App\Models\Appointment;
 use App\Models\User;
+use Tests\Unit\Controllers\ControllerTestCase;
 
 class TattooistAppointmentsControllerTest extends ControllerTestCase
 {

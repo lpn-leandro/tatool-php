@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Access;
+namespace Tests\Unit\Access\Tattooist;
 
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
