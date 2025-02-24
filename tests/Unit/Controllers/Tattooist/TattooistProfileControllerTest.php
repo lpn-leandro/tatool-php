@@ -18,7 +18,7 @@ class TattooistProfileControllerTest extends ControllerTestCase
         parent::setUp();
         $this->createUser();
         $this->avatarPath = Constants::rootPath()->join('tests/files/avatar_test.jpg');
-        $this->avatarUploadPath = Constants::rootPath()->join('public/assets/uploads/users' . '/' .$this->user->id . '/avatar.jpg');
+        $this->avatarUploadPath = Constants::rootPath()->join('public/assets/uploads/users/' . $this->user->id . '/avatar.jpg');
     }
 
     private function createUser(): void

@@ -16,6 +16,7 @@ use DateTime;
  * @property string $status
  * @property int $users_id
  * @property int $tattooists_id
+ * @property User $tattooist
  * @property User $user
  *
  */
