@@ -9,7 +9,7 @@ use PDO;
 use ReflectionMethod;
 
 /**
- * Class Models
+ * Class Model
  * @package Core\Database\ActiveRecord
  * @property int $id
  */
@@ -116,7 +116,7 @@ abstract class Model
 
     public function hasErrors(): bool
     {
-        return empty($this->errors);
+        return !empty($this->errors);
     }
 
     public function errors(string $index = null): string | null
@@ -133,7 +133,7 @@ abstract class Model
         $this->errors[$index] = $value;
     }
 
-    public abstract function validates(): void;
+    public function validates(): void {}
 
     /* ------------------- DATABASE METHODS ------------------- */
     public function save(): bool
@@ -302,16 +302,14 @@ abstract class Model
         $attributes = implode(', ', static::$columns);
 
         $sql = <<<SQL
-            SELECT id, {$attributes} FROM {$table} WHERE
+            SELECT id, {$attributes} FROM {$table} WHERE 
         SQL;
 
         $sqlConditions = array_map(function ($column) {
-            return " {$column} = :{$column}";
+            return "{$column} = :{$column}";
         }, array_keys($conditions));
 
         $sql .= implode(' AND ', $sqlConditions);
-
-        //dd($sql);
 
         $pdo = Database::getDatabaseConn();
         $stmt = $pdo->prepare($sql);
