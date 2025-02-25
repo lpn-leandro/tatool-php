@@ -25,14 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Função helper para requisições AJAX
 const ajax = {
     get: (url, params = {}) => fetch(`${url}?${new URLSearchParams(params)}`, {
         headers: { 'Accept': 'application/json' }
     }).then(response => response.json())
 };
 
-// Função para debounce
 const debounce = (func, wait) => {
     let timeout;
     return (...args) => {
@@ -41,7 +39,6 @@ const debounce = (func, wait) => {
     };
 };
 
-// Função para gerar HTML da linha da tabela
 const generateAppointmentRow = appointment => `
     <tr>
         <td><a href="/tattooists/appointments/${appointment.id}">#${appointment.id}</a></td>
@@ -64,7 +61,6 @@ const generateAppointmentRow = appointment => `
     </tr>
 `;
 
-// Função para atualizar a tabela
 const updateAppointmentsTable = appointments => {
     const tbody = document.querySelector('#appointments-table tbody');
     tbody.innerHTML = appointments.length 
@@ -72,7 +68,6 @@ const updateAppointmentsTable = appointments => {
         : '<tr><td colspan="7" class="text-center">Nenhum agendamento encontrado</td></tr>';
 };
 
-// Inicialização da pesquisa
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-client');
     if (!searchInput) return;
