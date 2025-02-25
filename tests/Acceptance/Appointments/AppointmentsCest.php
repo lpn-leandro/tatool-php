@@ -47,7 +47,7 @@ class AppointmentsCest extends BaseAcceptanceCest
         $page->see('#1', '//table//tr[1]//td[1]');
         $page->see('2025-12-31 10:00:00', '//table//tr[1]//td[2]');
     }
-    
+
 
     public function searchAppointment(AcceptanceTester $page): void
     {
@@ -59,7 +59,7 @@ class AppointmentsCest extends BaseAcceptanceCest
             'user_type' => 'T'
         ]);
         $tattoist->save();
-        
+
         $user = new User([
             'name' => 'Usuario 1',
             'email' => 'usuario@example.com',
@@ -67,7 +67,7 @@ class AppointmentsCest extends BaseAcceptanceCest
             'password_confirmation' => '123456',
             'user_type' => 'U'
         ]);
-        $user->save();  
+        $user->save();
 
         $appointment = new Appointment([
             'date' => '2025-12-31 10:00:00',
@@ -80,7 +80,7 @@ class AppointmentsCest extends BaseAcceptanceCest
 
         $page->login($tattoist->email, $tattoist->password);
         $page->amOnPage('tattooist/appointments');
-        
+
         $page->fillField('#search-client', 'Usuario 1');
 
         $page->see('Usuario 1', '//table//tr[1]//td[3]');
@@ -104,5 +104,4 @@ class AppointmentsCest extends BaseAcceptanceCest
 
         $page->see('Sem Agendamentos registrados', '//table//tr[1]//td[1]');
     }
-    
 }

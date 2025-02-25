@@ -63,7 +63,7 @@ class Request
     {
         $acceptHeader = $_SERVER['HTTP_ACCEPT'] ?? '';
         $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
-        
+
         return (
             strpos($acceptHeader, 'application/json') !== false ||
             strpos($contentType, 'application/json') !== false

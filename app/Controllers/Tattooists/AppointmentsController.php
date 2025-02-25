@@ -27,10 +27,13 @@ class AppointmentsController extends Controller
             ], $appointments)]);
             return;
         }
-        
+
         $this->render('tattooists/appointments/index', [
             'title' => 'Agendamentos',
-            'appointments' => $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam('page', 1))->registers()
+            'appointments' => $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam(
+                'page',
+                1
+            ))->registers()
         ]);
     }
 
