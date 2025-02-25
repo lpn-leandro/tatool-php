@@ -16,6 +16,7 @@ use DateTime;
  * @property string $status
  * @property int $users_id
  * @property int $tattooists_id
+ * @property User $tattooist
  * @property User $user
  *
  */
@@ -37,5 +38,10 @@ class Appointment extends Model
     public function validates(): void
     {
         Validations::notEmpty('date', $this);
+        Validations::notEmpty('size', $this);
+        Validations::notEmpty('location', $this);
+        Validations::notEmpty('status', $this);
+        Validations::notEmpty('users_id', $this);
+        Validations::notEmpty('tattooists_id', $this);
     }
 }
