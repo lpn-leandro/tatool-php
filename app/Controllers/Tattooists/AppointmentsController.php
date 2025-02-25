@@ -12,40 +12,26 @@ class AppointmentsController extends Controller
 {
     public function index(Request $request): void
     {
-        $title = 'Agendamentos';
-        $search = $request->getParam('search');
-        
-        $query = $this->current_user->tattoistsAppointments();
-        
-        if ($search && $request->isJson()) {
-            $appointments = array_filter($query->get(), function($appointment) use ($search) {
-                return stripos($appointment->user->name, $search) !== false;
-            });
-        } else {
-            $paginator = $query->paginate(page: $request->getParam('page', 1));
-            $appointments = $paginator->registers();
-        }
-
         if ($request->isJson()) {
-            $appointmentsArray = array_map(function($appointment) {
-                return [
-                    'id' => $appointment->id,
-                    'date' => $appointment->date,
-                    'user' => [
-                        'name' => $appointment->user->name
-                    ],
-                    'location' => $appointment->location,
-                    'size' => $appointment->size,
-                    'status' => $appointment->status
-                ];
-            }, is_array($appointments) ? $appointments : iterator_to_array($appointments));
-
-            header('Content-Type: application/json');
-            echo json_encode(['appointments' => array_values($appointmentsArray)]);
+            $appointments = $this->current_user->tattoistsAppointments()->get();
+            if ($search = $request->getParam('search')) {
+                $appointments = array_filter($appointments, fn($a) => stripos($a->user->name, $search) !== false);
+            }
+            echo json_encode(['appointments' => array_map(fn($a) => [
+                'id' => $a->id,
+                'date' => $a->date,
+                'user' => ['name' => $a->user->name],
+                'location' => $a->location,
+                'size' => $a->size,
+                'status' => $a->status
+            ], $appointments)]);
             return;
         }
-
-        $this->render('tattooists/appointments/index', compact('paginator', 'appointments', 'title'));
+        
+        $this->render('tattooists/appointments/index', [
+            'title' => 'Agendamentos',
+            'appointments' => $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam('page', 1))->registers()
+        ]);
     }
 
     public function show(Request $request): void

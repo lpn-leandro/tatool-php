@@ -27,89 +27,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Função helper para requisições AJAX
 const ajax = {
-    get: (url, params = {}) => {
-        const queryString = new URLSearchParams(params).toString();
-        const fullUrl = queryString ? `${url}?${queryString}` : url;
-        
-        return fetch(fullUrl, {
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Erro na requisição');
-            return response.json();
-        });
-    }
+    get: (url, params = {}) => fetch(`${url}?${new URLSearchParams(params)}`, {
+        headers: { 'Accept': 'application/json' }
+    }).then(response => response.json())
 };
 
-// Função para debounce (evita múltiplas requisições enquanto digita)
-function debounce(func, wait) {
+// Função para debounce
+const debounce = (func, wait) => {
     let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
+    return (...args) => {
         clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
+        timeout = setTimeout(() => func(...args), wait);
     };
-}
+};
 
-// Função para atualizar a tabela com os resultados
-function updateAppointmentsTable(appointments) {
+// Função para gerar HTML da linha da tabela
+const generateAppointmentRow = appointment => `
+    <tr>
+        <td><a href="/tattooists/appointments/${appointment.id}">#${appointment.id}</a></td>
+        <td>${appointment.date}</td>
+        <td>${appointment.user.name}</td>
+        <td>${appointment.location}</td>
+        <td>${appointment.size}</td>
+        <td>${appointment.status}</td>
+        <td>
+            <div class="d-flex flex-row-reverse">
+                <form action="/tattooists/appointments/${appointment.id}" method="POST" class="m-0">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-link"><i class="bi bi-archive"></i></button>
+                </form>
+                <a href="/tattooists/appointments/${appointment.id}/edit" class="btn btn-link pe-0">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+            </div>
+        </td>
+    </tr>
+`;
+
+// Função para atualizar a tabela
+const updateAppointmentsTable = appointments => {
     const tbody = document.querySelector('#appointments-table tbody');
-    if (!tbody) return;
-
-    if (appointments.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7" class="text-center">Nenhum agendamento encontrado</td>
-            </tr>
-        `;
-        return;
-    }
-
-    tbody.innerHTML = appointments.map(appointment => `
-        <tr>
-            <td><a href="/tattooists/appointments/${appointment.id}">#${appointment.id}</a></td>
-            <td>${appointment.date}</td>
-            <td>${appointment.user.name}</td>
-            <td>${appointment.location}</td>
-            <td>${appointment.size}</td>
-            <td>${appointment.status}</td>
-            <td>
-                <div class="d-flex flex-row-reverse">
-                    <form action="/tattooists/appointments/${appointment.id}" method="POST" class="m-0">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-link"><i class="bi bi-archive"></i></button>
-                    </form>
-                    <a href="/tattooists/appointments/${appointment.id}/edit" class="btn btn-link pe-0">
-                        <i class="bi bi-pencil-square"></i>
-                    </a>
-                </div>
-            </td>
-        </tr>
-    `).join('');
-}
+    tbody.innerHTML = appointments.length 
+        ? appointments.map(generateAppointmentRow).join('')
+        : '<tr><td colspan="7" class="text-center">Nenhum agendamento encontrado</td></tr>';
+};
 
 // Inicialização da pesquisa
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-client');
     if (!searchInput) return;
 
-    const searchAppointments = debounce((query) => {
-        ajax.get('/tattooists/appointments', { search: query })
-            .then(data => {
-                updateAppointmentsTable(data.appointments);
-            })
-            .catch(error => {
-                console.error('Erro na pesquisa:', error);
-            });
-    }, 300);
-
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.trim();
-        searchAppointments(query);
-    });
+    searchInput.addEventListener('input', debounce(e => 
+        ajax.get('/tattooists/appointments', { search: e.target.value.trim() })
+            .then(data => updateAppointmentsTable(data.appointments))
+            .catch(error => console.error('Erro na pesquisa:', error))
+    , 300));
 });
