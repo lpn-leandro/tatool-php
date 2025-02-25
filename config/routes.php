@@ -87,4 +87,10 @@ Route::middleware('tattooist')->group(function () {
     ->name('tattooist.profile.show');
     Route::post('/tattooist/profile/avatar', [TattooistsProfileController::class, 'updateAvatar'])
     ->name('tattooist.profile.avatar');
+
+    // Rotas para Appointments
+    Route::get('/tattooists/appointments', [TattooistsAppointmentsController::class, 'index'])
+        ->name('tattooists.appointments.index');
+    Route::get('/tattooists/appointments/page/{page}', [TattooistsAppointmentsController::class, 'index'])
+        ->name('tattooists.appointments.paginate');
 });

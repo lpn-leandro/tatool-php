@@ -12,12 +12,29 @@ class AppointmentsController extends Controller
 {
     public function index(Request $request): void
     {
-        $title = 'Agendamentos';
-        $user = Auth::user();
-        $paginator = $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam('page', 1));
-        $appointments = $paginator->registers();
+        if ($request->isJson()) {
+            $appointments = $this->current_user->tattoistsAppointments()->get();
+            if ($search = $request->getParam('search')) {
+                $appointments = array_filter($appointments, fn($a) => stripos($a->user->name, $search) !== false);
+            }
+            echo json_encode(['appointments' => array_map(fn($a) => [
+                'id' => $a->id,
+                'date' => $a->date,
+                'user' => ['name' => $a->user->name],
+                'location' => $a->location,
+                'size' => $a->size,
+                'status' => $a->status
+            ], $appointments)]);
+            return;
+        }
 
-        $this->render('tattooists/appointments/index', compact('paginator', 'appointments', 'title'));
+        $this->render('tattooists/appointments/index', [
+            'title' => 'Agendamentos',
+            'appointments' => $this->current_user->tattoistsAppointments()->paginate(page: $request->getParam(
+                'page',
+                1
+            ))->registers()
+        ]);
     }
 
     public function show(Request $request): void
